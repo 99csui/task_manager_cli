@@ -1,4 +1,6 @@
 from models.task import Task
+from models.enums import TaskPriority, TaskStatus
+
 
 class TaskRepository:
 
@@ -6,7 +8,7 @@ class TaskRepository:
         self.tasks = []
 
 
-    def add_task(self, task):
+    def add_task(self, task: Task) ->bool:
         if isinstance(task, Task):
             found_task = self.find_task_by_id(task.id)
             if found_task is not None:
@@ -17,7 +19,7 @@ class TaskRepository:
         return False
 
 
-    def find_task_by_id(self, task_id):
+    def find_task_by_id(self, task_id: int) -> Task | None:
         for task in self.tasks:
             if task.id == task_id:
                 return task
@@ -26,7 +28,7 @@ class TaskRepository:
     def list_tasks(self):
         return self.tasks
 
-    def remove_task(self, task_id):
+    def remove_task(self, task_id: int) -> bool:
         found_task = self.find_task_by_id(task_id)
         if found_task is not None:
             self.tasks.remove(found_task)
@@ -35,7 +37,7 @@ class TaskRepository:
             return False
 
 
-    def change_task_status(self,task_id, new_status):
+    def change_task_status(self,task_id: int, new_status:TaskStatus) -> bool:
         found_task = self.find_task_by_id(task_id)
         if found_task is None:
             return False
@@ -43,7 +45,7 @@ class TaskRepository:
         return True
 
 
-    def change_task_priority(self, task_id, new_priority):
+    def change_task_priority(self, task_id:int, new_priority:TaskPriority) -> bool:
         found_task = self.find_task_by_id(task_id)
         if found_task is None:
             return False
