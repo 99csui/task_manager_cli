@@ -33,3 +33,21 @@ class TaskRepository:
             return True
         else:
             return False
+
+
+    def change_task_status(self,task_id, new_status):
+        found_task = self.find_task_by_id(task_id)
+        if found_task is None:
+            return False
+        found_task.change_status(new_status)
+        return True
+
+
+    def change_task_priority(self, task_id, new_priority):
+        found_task = self.find_task_by_id(task_id)
+        if found_task is None:
+            return False
+        found_task.change_priority(new_priority)
+        return True
+
+
