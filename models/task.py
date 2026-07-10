@@ -34,6 +34,13 @@ class Task:
     def mark_as_finished(self) -> None:
         self.change_status(TaskStatus.FINISHED)
 
+    def __str__(self):
+       return (f"Taks ID: {self.id}\n"
+                       f"Title: {self.title}\n"
+                       f"Description: {self.description}\n"
+                       f"Status: {self.status.value}\n"
+                       f"Priority: {self.priority.value}")
+
 
     def _validate_id(self) -> None:
         if not isinstance(self.id,int):
