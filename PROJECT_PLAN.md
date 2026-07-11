@@ -1,140 +1,141 @@
-# Project Plan - Task Manager CLI
+# Project Plan – Task Manager CLI
 
-## 1. Project Vision
+## 1. Project Overview
 
-### Purpose
+### Project Name
 
-Task Manager CLI is a command-line application developed to practice professional software development using Python.
+Task Manager CLI
 
-The project focuses on applying Object-Oriented Programming, software architecture, unit testing, Git workflow, and clean code principles while building a real portfolio project.
+### Description
 
-### Problem Statement
+Task Manager CLI is a command-line application developed in Python that allows users to manage personal tasks through a simple and intuitive interface.
 
-Users often need a simple way to organize and manage personal tasks.
+The main objective of this project is to practice software engineering fundamentals while building a clean, maintainable, and well-tested Python application.
 
-The application will provide a clean and maintainable solution that allows users to create, update, organize and complete tasks from the command line.
+This project follows a layered architecture separating:
 
-### Success Criteria
-
-The project will be considered successful when:
-
-* All planned features are implemented.
-* The application follows the selected architecture.
-* Every public method is covered by unit tests.
-* The Git history is clean and meaningful.
-* The project documentation is complete.
-* The project is suitable to be included in a professional portfolio.
+* Domain Model
+* Repository Layer
+* Console User Interface
 
 ---
 
-# 2. Business Requirements
+# 2. Learning Objectives
 
-The system must allow users to:
+This project focuses on practicing:
+
+* Python fundamentals
+* Object-Oriented Programming
+* Dataclasses
+* Enumerations
+* Type Hints
+* Clean Code
+* Repository Pattern
+* Domain Validation
+* Separation of Responsibilities
+* Unit Testing with unittest
+* Git workflow
+* Command Line Interfaces (CLI)
+
+---
+
+# 3. Business Requirements
+
+The application must allow the user to:
 
 * Create tasks.
-* Search tasks by ID.
 * List all tasks.
-* Change task priority.
-* Change task status.
-* Mark tasks as completed.
+* Search a task by ID.
 * Remove tasks.
-
----
-
-# 3. Functional Requirements
-
-Version 1 must implement the following features:
-
-### Task Management
-
-* Create a new task.
-* Remove an existing task.
-* Find a task by its ID.
-* List all tasks.
-
-### Task Operations
-
-* Change task status.
+* Change task status (including marking a task as finished).
 * Change task priority.
-* Mark a task as finished.
 
 ---
 
-# 4. Non-Functional Requirements
+# 4. Functional Requirements
 
-The project must:
+Each task must contain:
 
-* Be implemented using Object-Oriented Programming.
-* Follow a layered architecture.
-* Be fully tested using `unittest`.
-* Follow PEP 8 conventions.
-* Use meaningful names for classes, methods and variables.
-* Keep responsibilities separated between layers.
-* Use Git with feature branches.
-* Follow Conventional Commits.
+* ID
+* Title
+* Description
+* Status
+* Priority
 
----
+Rules:
 
-# 5. Project Scope
-
-## Included
-
-Version 1 includes:
-
-* In-memory task storage.
-* Command-line execution.
-* Unit testing.
-* Layered architecture.
-* Professional Git workflow.
-
-## Excluded
-
-The following features are intentionally postponed:
-
-* JSON persistence.
-* Database support.
-* REST API.
-* Authentication.
-* Multiple users.
-* Graphical User Interface.
-* Docker.
-* Logging.
-* Configuration files.
-
-These features may be implemented in future versions.
+* Task IDs must be unique.
+* IDs must be greater than zero.
+* Title cannot be empty.
+* Description cannot be empty.
+* Status must be a valid TaskStatus.
+* Priority must be a valid TaskPriority.
 
 ---
 
-# 6. Architecture
-
-This project follows a simplified layered architecture.
+# 5. Architecture
 
 ```text
-Presentation Layer (main.py)
-
+main.py
         │
-
         ▼
-
-Repository Layer
-
+ConsoleMenu
         │
-
         ▼
-
-Domain Model
+TaskRepository
+        │
+        ▼
+Task
 ```
 
-## Project Structure
+Responsibilities:
+
+## Task
+
+Responsible for:
+
+* Representing a task.
+* Protecting domain invariants.
+* Validating its own data.
+* Changing its own state.
+
+## TaskRepository
+
+Responsible for:
+
+* Storing tasks.
+* Searching tasks.
+* Removing tasks.
+* Preventing duplicated IDs.
+* Delegating modifications to Task.
+
+## ConsoleMenu
+
+Responsible for:
+
+* Interacting with the user.
+* Reading input.
+* Displaying information.
+* Calling the repository.
+
+---
+
+# 6. Project Structure
 
 ```text
 task_manager_cli/
 │
+├── cli/
+│   ├── __init__.py
+│   └── menu.py
+│
 ├── models/
-│   ├── task.py
-│   └── enums.py
+│   ├── __init__.py
+│   ├── enums.py
+│   └── task.py
 │
 ├── repositories/
+│   ├── __init__.py
 │   └── task_repository.py
 │
 ├── tests/
@@ -143,165 +144,122 @@ task_manager_cli/
 │
 ├── main.py
 ├── README.md
-├── PROJECT_PLAN.md
-└── .gitignore
+└── PROJECT_PLAN.md
 ```
 
 ---
 
-# 7. Domain Model
+# 7. Coding Standards
 
-## Task
+The project follows:
 
-### Responsibilities
-
-* Represent a task.
-* Change its own status.
-* Change its own priority.
-* Mark itself as finished.
-
-### Attributes
-
-* id
-* title
-* description
-* status
-* priority
-
-### Public Methods
-
-* change_status()
-* change_priority()
-* mark_as_finished()
-* **str**()
-* **eq**()
+* PEP 8
+* Type Hints
+* Fail Fast
+* DRY (Don't Repeat Yourself)
+* Single Responsibility Principle
+* Clear and descriptive names
+* Small methods with a single responsibility
 
 ---
 
-## TaskStatus
+# 8. Git Workflow
 
-Allowed values:
+Development is performed using feature branches.
 
-* WAITING
-* IN_PROGRESS
-* FINISHED
-
----
-
-## TaskPriority
-
-Allowed values:
-
-* LOW
-* MEDIUM
-* HIGH
-
----
-
-# 8. Repository Layer
-
-## TaskRepository
-
-### Responsibilities
-
-* Store tasks.
-* Add tasks.
-* Remove tasks.
-* Search tasks by ID.
-* List tasks.
-* Update task status.
-* Update task priority.
-
-The repository is responsible only for managing the collection of tasks.
-
-Business rules belong to the domain model.
-
----
-
-# 9. Development Roadmap
-
-## Sprint 0
-
-* Project planning
-* Git configuration
-* Architecture
-* Initial project structure
-
-## Sprint 1
-
-* Task model
-* TaskStatus
-* TaskPriority
-
-## Sprint 2
-
-* TaskRepository
-
-## Sprint 3
-
-* Task operations
-
-## Sprint 4
-
-* Unit testing
-
-## Sprint 5
-
-* Documentation
-
-## Sprint 6
-
-* Final code review
-* Merge into main
-
----
-
-# 10. Testing Strategy
-
-The project will use Python's `unittest` framework.
-
-Every public method must include tests covering:
-
-* Successful execution.
-* Invalid scenarios.
-* Edge cases.
-
-Tests should validate behavior instead of implementation details.
-
----
-
-# 11. Git Workflow
-
-## Branch Strategy
+Workflow:
 
 ```text
 main
-│
-└── feature/task_manager_cli
+    │
+    └── feature/<feature-name>
 ```
 
-Development takes place in the feature branch.
+Each feature should be developed independently and merged into `main` through a Pull Request after review.
 
-The project is merged into `main` only after:
+Commit messages should follow a clear convention, for example:
 
-* All planned features are complete.
-* All tests pass.
-* Code review is completed.
+```text
+feat: add task validation
+fix: correct duplicate id validation
+refactor: simplify repository methods
+test: add repository unit tests
+docs: update project documentation
+```
 
-## Commit Convention
+---
 
-The project follows Conventional Commits.
+# 9. Testing Strategy
 
-Examples:
+The project uses Python's `unittest` framework.
 
-* feat:
-* fix:
-* refactor:
-* docs:
-* test:
-* chore:
+Unit tests cover the domain and repository layers.
 
-Each commit should represent one logical unit of work.
+Tests include:
+
+* Successful scenarios.
+* Invalid input.
+* Edge cases.
+* Domain validation.
+
+The console interface is verified through manual acceptance testing.
+
+Tests focus on validating behavior rather than implementation details.
+
+---
+
+# 10. Development Roadmap
+
+## Sprint 1
+
+* Project setup
+* Domain model
+* Enums
+* Dataclass
+
+## Sprint 2
+
+* Repository implementation
+* Repository tests
+
+## Sprint 3
+
+* Domain validation
+* Validation tests
+* Type hints
+
+## Sprint 4
+
+* Console interface
+* User input validation
+* Manual acceptance testing
+
+## Sprint 5
+
+* Final code review
+* Refactoring
+* Documentation
+* README
+
+## Sprint 6
+
+* Final Pull Request
+* Merge into main
+* Project release
+
+---
+
+# 11. Technical Debt
+
+Known improvements for future versions:
+
+* Replace the generic `_validate_user_input()` method with specialized input readers.
+* Add automated tests for the CLI using mocks.
+* Improve dependency injection for `ConsoleMenu`.
+* Return copies of internal collections when appropriate.
+* Add persistent storage (JSON or SQLite).
+* Add filtering and sorting options.
+* Improve user experience with richer console output.
 
 ---
 
@@ -310,29 +268,11 @@ Each commit should represent one logical unit of work.
 The project is considered complete when:
 
 * All planned features are implemented.
-* All unit tests pass.
-* The architecture remains consistent.
-* Code review is completed.
-* Documentation is updated.
+* Domain and repository unit tests pass successfully.
+* The console interface passes manual acceptance testing.
+* The architecture remains clean and consistent.
+* Code review findings have been addressed.
+* Documentation is complete.
 * Git history is clean.
-* The README explains how to install, execute and test the application.
-
----
-
-# 13. Future Improvements
-
-Possible future versions may include:
-
-* JSON persistence.
-* SQLite support.
-* PostgreSQL support.
-* REST API with FastAPI.
-* User authentication.
-* Task categories.
-* Due dates.
-* Tags.
-* Search filters.
-* Docker support.
-* Logging.
-* Configuration management.
-* Continuous Integration (CI).
+* A professional README has been written.
+* The project has been merged into `main`.
