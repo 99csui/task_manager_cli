@@ -40,15 +40,15 @@ class ConsoleMenu:
         
 
     def _show_menu(self) -> str:
-        menu = "==== Task Manager ====\n" \
-        "1. List tasks\n" \
-        "2. Add task\n" \
-        "3. Find task\n" \
-        "4. Remove task\n" \
-        "5. Change task status\n" \
-        "6. Change task priority\n" \
-        "0. Exit"
-        return menu
+        return ("==== Task Manager ====\n"
+        "1. List tasks\n"
+        "2. Add task\n"
+        "3. Find task\n"
+        "4. Remove task\n"
+        "5. Change task status\n"
+        "6. Change task priority\n"
+        "0. Exit")
+        
 
     def _list_tasks(self) -> None:
         tasks = self.repository.list_tasks()
@@ -58,7 +58,6 @@ class ConsoleMenu:
             for task in tasks:
                 print(task)
                 print()
-
 
 
     def _add_task(self) -> None:
@@ -75,6 +74,7 @@ class ConsoleMenu:
                 print("Task could not be added.")
         except (TypeError, ValueError) as error:
             print(error)
+
 
     def _find_task(self) -> None:
         print("**** Find task by id ****")
@@ -128,7 +128,7 @@ class ConsoleMenu:
                 print("The task priority cannot be changed.")
 
 
-    def _validate_user_input(self, type_input: str,input_user: str) -> int | str | TaskStatus | TaskPriority:
+    def _validate_user_input(self, type_input: str, input_user: str) -> int | str | TaskStatus | TaskPriority:
         while True:
             value = input(f"{input_user}: ")
             strip_value = value.strip()

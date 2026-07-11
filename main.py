@@ -1,7 +1,7 @@
 from cli.menu import ConsoleMenu
 
 
-def main():
+def main() -> None:
 
     menu = ConsoleMenu()    
     menu.run()
