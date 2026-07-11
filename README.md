@@ -188,9 +188,9 @@ All tests should pass successfully before creating a Pull Request or merging cha
 Select an option:
 2
 
-Id: 1
-Title: Study Python
-Description: Practice object-oriented programming
+* Id: 1
+* Title: Study Python
+* Description: Practice object-oriented programming
 
 Task added successfully.
 
